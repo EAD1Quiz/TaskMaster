@@ -4,28 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TaskMaster Web Page</title>
-    <!-- Include Bootstrap CSS -->
+
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
-    <!-- Include custom CSS -->
-    <link rel="stylesheet" href="./style/style.css" />
+
+    <link rel="stylesheet" href="style/style.css" />
   </head>
   <body>
     <nav
       class="navbar navbar-expand-lg navbar-light"
       style="background-color: #149c08"
     >
-      <!-- Logo on the leftmost side with white color -->
-      <a class="navbar-brand logo" href="#">ProgX</a>
+      <a class="navbar-brand logo text-white" href="index.html">ProgX</a>
 
-      <!-- Notification icon on the rightmost side -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link notification-icon" href="#">
             <span>&#x1F514;</span>
-            <!-- Unicode for a bell icon -->
           </a>
         </li>
         <li class="nav-item dropdown" id="userDropdown">
@@ -42,15 +39,13 @@
               <div class="profile-circle">
                 <img src="./img/6596121.png" alt="Random Avatar" />
               </div>
-              <p class="profile-text">Login/Signup</p>
+              <p class="profile-text">Super Admin</p>
             </div>
-            <!-- Remove the custom indicator for the dropdown button -->
           </a>
           <div
             class="dropdown-menu dropdown-menu-right"
             aria-labelledby="profileDropdown"
           >
-            <!-- Add login and signup options here -->
             <a class="dropdown-item" href="login.html">Login</a>
             <a class="dropdown-item" href="signup.html">Signup</a>
           </div>
@@ -59,79 +54,148 @@
     </nav>
 
     <div class="container-fluid">
-      <!-- Page content goes here -->
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <h1 class="text-left">Dashboard</h1>
-          <!-- Position "Dashboard" to the left -->
           <p class="text-left">ProgX: bridge between team</p>
-          <!-- Display text below "Dashboard" -->
+        </div>
+      </div>
 
-          <!-- Task List -->
-          <div class="task-list">
-            <h2>Task List</h2>
-            <ul>
-              <li>
-                <span class="task-title">Task 1:</span> Lorem ipsum dolor sit
-                amet
-              </li>
-              <li>
-                <span class="task-title">Task 2:</span> Consectetur adipiscing
-                elit
-              </li>
-              <!-- Add more tasks here -->
-            </ul>
-          </div>
-
-          <!-- Task Form (Create Task) -->
+      <div class="row">
+        <div class="col-md-4">
           <div class="task-form">
             <h2>Create Task</h2>
-            <form>
+            <form id="createTaskForm">
               <div class="form-group">
                 <input
                   type="text"
                   class="form-control"
                   placeholder="Task Title"
+                  id="taskTitle"
+                  required
                 />
               </div>
               <div class="form-group">
                 <textarea
                   class="form-control"
                   placeholder="Task Description"
+                  id="taskDescription"
+                  required
                 ></textarea>
               </div>
-              <button type="submit" class="btn btn-primary">Create Task</button>
+              <div class="form-group">
+                <label for="taskPriority">Task Priority:</label>
+                <select class="form-control" id="taskPriority" required>
+                  <option value="Select">Select</option>
+
+                  <option value="low">Low</option>
+                  <option value="normal">Normal</option>
+                  <option value="high">High</option>
+                  <option value="urgent">Urgent</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="assignedTo">Assigned to:</label>
+                <select class="form-control" id="assignedTo" required>
+                  <option value="Select">Select</option>
+
+                  <option value="User 1">Hamza Shaikh</option>
+                  <option value="User 2">Hassan Memon</option>
+                  <option value="User 3">Saeed Ali</option>
+                  <option value="User 4">Hashim Raza</option>
+                  <option value="User 5">Noor ellahi</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="dueDate">Due Date:</label>
+                <input type="date" class="form-control" id="dueDate" required />
+              </div>
+              <button type="submit" class="btn btn-primary bg-149c08">
+                Create Task
+              </button>
             </form>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <div class="task-list">
+            <h2>Task List</h2>
+            <ul id="taskList"></ul>
           </div>
         </div>
       </div>
     </div>
-    <!-- Include Bootstrap JS and jQuery -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js'
-      import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js'
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
+    <script>
+      const urlParams = new URLSearchParams(window.location.search)
+      const userEmail = urlParams.get('email')
 
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      const firebaseConfig = {
-        apiKey: 'AIzaSyDbpQa4oxJFboYGXjXzYlcOkONNgIf_Xuk',
-        authDomain: 'ead-tracker-44585.firebaseapp.com',
-        projectId: 'ead-tracker-44585',
-        storageBucket: 'ead-tracker-44585.appspot.com',
-        messagingSenderId: '378433174327',
-        appId: '1:378433174327:web:28c22db4436e243967b8b2',
-        measurementId: 'G-X421WG656W',
+      const profileText = document.querySelector('.profile-text')
+      if (userEmail) {
+        profileText.textContent = userEmail
       }
 
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig)
-      const analytics = getAnalytics(app)
+      function saveTaskToLocalStorage(task) {
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || []
+        tasks.push(task)
+        localStorage.setItem('tasks', JSON.stringify(tasks))
+      }
+
+      function displayTasksFromLocalStorage() {
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || []
+        const taskList = document.getElementById('taskList')
+        taskList.innerHTML = ''
+
+        tasks.forEach((task, index) => {
+          const taskItem = document.createElement('li')
+          const taskStatus = task.completed ? 'Completed' : 'Pending'
+
+          let taskPriorityClass = ''
+          switch (task.priority) {
+            case 'low':
+              taskPriorityClass = 'task-priority-low'
+              break
+            case 'normal':
+              taskPriorityClass = 'task-priority-normal'
+              break
+            case 'high':
+              taskPriorityClass = 'task-priority-high'
+              break
+            case 'urgent':
+              taskPriorityClass = 'task-priority-urgent'
+              break
+          }
+
+          taskItem.innerHTML = `
+      <span class="task-title ${taskPriorityClass}">Task ${
+            index + 1
+          } (Priority: ${task.priority}, Assigned to: ${
+            task.assignedTo
+          }, Due Date: ${task.dueDate}):</span> ${task.title} - ${
+            task.description
+          }
+      <button class="btn btn-success btn-sm" onclick="markTaskCompleted(${index})">${taskStatus}</button>
+    `
+          taskList.appendChild(taskItem)
+        })
+      }
+
+      function markTaskCompleted(index) {
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || []
+
+        if (index >= 0 && index < tasks.length) {
+          tasks[index].completed = !tasks[index].completed
+
+          localStorage.setItem('tasks', JSON.stringify(tasks))
+
+          displayTasksFromLocalStorage()
+        }
+      }
+
+      displayTasksFromLocalStorage()
     </script>
   </body>
 </html>

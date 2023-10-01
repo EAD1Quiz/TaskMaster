@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <!-- Include Bootstrap CSS -->
+
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
-    <!-- Include custom CSS -->
+
     <link rel="stylesheet" href="./style/style.css" />
   </head>
   <body>
@@ -42,29 +42,20 @@
       </form>
     </div>
 
-    <!-- Include Firebase JavaScript SDK without ES6 modules -->
-    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-database-compat.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Your Firebase configuration -->
     <script>
-      const firebaseConfig = {
-        apiKey: 'AIzaSyDbpQa4oxJFboYGXjXzYlcOkONNgIf_Xuk',
-        authDomain: 'ead-tracker-44585.firebaseapp.com',
-        projectId: 'ead-tracker-44585',
-        storageBucket: 'ead-tracker-44585.appspot.com',
-        messagingSenderId: '378433174327',
-        appId: '1:378433174327:web:28c22db4436e243967b8b2',
-        measurementId: 'G-X421WG656W',
+      const predefinedUsers = {
+        'Hamza Shaikh': 'admin123',
+        'Hassan Memon': 'admin123',
+        'Saeed Ali': 'admin123',
+        'Hashim Raza': 'admin123',
+        'Noor ellahi': 'admin123',
+        'Super Admin': 'admin123',
       }
 
-      // Initialize Firebase with compat versions
-      const app = firebase.initializeApp(firebaseConfig)
-      const auth = app.auth()
-      const database = app.database()
-
-      // Handle login form submission
       document
         .getElementById('login-form')
         .addEventListener('submit', function (event) {
@@ -73,29 +64,17 @@
           const username = document.getElementById('username').value
           const password = document.getElementById('password').value
 
-          // Authenticate the user with Firebase
-          auth
-            .signInWithEmailAndPassword(username, password)
-            .then((userCredential) => {
-              // User logged in successfully
-              const user = userCredential.user
-              console.log('User logged in:', user)
-
-              // Redirect to the homepage
-              window.location.href = 'index.html'
-            })
-            .catch((error) => {
-              // Handle login errors
-              const errorCode = error.code
-              const errorMessage = error.message
-              console.error('Login error:', errorCode, errorMessage)
-            })
+          if (
+            predefinedUsers.hasOwnProperty(username) &&
+            predefinedUsers[username] === password
+          ) {
+            window.location.href = `index.html?email=${encodeURIComponent(
+              username
+            )}`
+          } else {
+            alert('Invalid username or password. Please try again.')
+          }
         })
     </script>
-
-    <!-- Include Bootstrap JS and jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </body>
 </html>
