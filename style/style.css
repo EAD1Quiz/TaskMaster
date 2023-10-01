@@ -1,0 +1,59 @@
+/* styles.css */
+
+body {
+  background-color: #f4f4f4;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: white; /* Set logo text color to white */
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+}
+
+/* Remove the default margin and padding from the dropdown-toggle */
+.dropdown-toggle {
+  margin: 0;
+  padding: 0;
+}
+.notification-icon {
+  font-size: 24px;
+  color: #007bff; /* Blue color for the icon */
+}
+
+/* Style for the profile circle container */
+.profile-circle-container {
+  display: flex; /* Use flexbox for vertical alignment */
+  align-items: center; /* Center items vertically */
+}
+
+.profile-circle {
+  width: 40px;
+  height: 40px;
+  background-color: #007bff; /* Blue background color for the circle */
+  border-radius: 50%; /* Make it circular */
+  margin-right: 10px; /* Adjust margin as needed */
+  overflow: hidden;
+}
+
+.profile-circle img {
+  width: 100%;
+  height: auto;
+}
+
+/* Adjust the alignment of "Login or Signup" text */
+.profile-text {
+  margin: 0; /* Remove default margin */
+  color: white; /* Text color */
+  line-height: 40px; /* Vertically center the text within the circle */
+}
+
+/* Add your additional styles here */

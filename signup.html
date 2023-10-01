@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup</title>
+    <!-- Include Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Include custom CSS -->
+    <link rel="stylesheet" href="./style/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Signup</h1>
+      <form id="signup-form">
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="fullname"
+            placeholder="Enter your full name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Signup</button>
+        <a href="login.html" class="btn btn-secondary">Login</a>
+        <p>Already have an account? <a href="login.html">Login</a></p>
+      </form>
+    </div>
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Include Firebase JavaScript SDK (compat version) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth-compat.js"></script>
+
+    <!-- Include Firebase JavaScript SDK for the browser -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js"></script> -->
+
+    <!-- Your Firebase configuration -->
+    <script>
+      const firebaseConfig = {
+        apiKey: 'AIzaSyDbpQa4oxJFboYGXjXzYlcOkONNgIf_Xuk',
+        authDomain: 'ead-tracker-44585.firebaseapp.com',
+        projectId: 'ead-tracker-44585',
+        storageBucket: 'ead-tracker-44585.appspot.com',
+        messagingSenderId: '378433174327',
+        appId: '1:378433174327:web:28c22db4436e243967b8b2',
+        measurementId: 'G-X421WG656W',
+      }
+
+      // Initialize Firebase
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig)
+      }
+
+      // Handle signup form submission
+      document
+        .getElementById('signup-form')
+        .addEventListener('submit', function (event) {
+          event.preventDefault()
+
+          const fullname = document.getElementById('fullname').value
+          const email = document.getElementById('email').value
+          const password = document.getElementById('password').value
+
+          // Sign up with email and password
+          firebase
+            .auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+              // User signed up successfully
+              const user = userCredential.user
+              console.log('User signed up:', user)
+
+              // You can redirect the user to the dashboard or home page here
+            })
+            .catch((error) => {
+              // Handle errors during signup
+              const errorCode = error.code
+              const errorMessage = error.message
+              console.error('Signup error:', errorCode, errorMessage)
+            })
+        })
+    </script>
+  </body>
+</html>
